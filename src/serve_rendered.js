@@ -792,7 +792,7 @@ module.exports = {
           map.sources[name] = new MBTiles(mbtilesFile, err => {
             map.sources[name].getInfo((err, info) => {
               // console.log('00000000000000000000000000',info);
-              info.proj4 = 'EPSG:4326';
+              // info.proj4 = 'EPSG:4326';
               // console.log('00000000000000000000000000_____again',info);
               if (err) {
                 console.error(err);
@@ -807,8 +807,8 @@ module.exports = {
                 const to3857 = proj4('EPSG:3857');
                 const toDataProj = proj4(info.proj4);
                 console.log('2222222222222222222222221',info.proj4);
-                // repo[id].dataProjWGStoInternalWGS = xy => to3857.inverse(toDataProj.forward(xy));
-                repo[id].dataProjWGStoInternalWGS = xy => proj4('EPSG:3857', info.proj4).forward(xy);
+                repo[id].dataProjWGStoInternalWGS = xy => to3857.inverse(toDataProj.forward(xy));
+                // repo[id].dataProjWGStoInternalWGS = xy => proj4('EPSG:3857', info.proj4).forward(xy);
               }
 
               const type = source.type;
