@@ -21,6 +21,7 @@ module.exports = {
       if (!item) {
         return res.sendStatus(404);
       }
+      console.log('----------------------------------data-------------load')
       let tileJSONFormat = item.tileJSON.format;
       const z = req.params.z | 0;
       const x = req.params.x | 0;

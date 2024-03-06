@@ -1,0 +1,258 @@
+{
+  "version": 8,
+  "name": "OSM Liberty",
+  "metadata": {
+    "maputnik:license": "https://github.com/maputnik/osm-liberty/blob/gh-pages/LICENSE.md",
+    "maputnik:renderer": "mbgljs",
+    "openmaptiles:version": "3.x"
+  },
+  "sources": {
+    "gebco_polygon4osm": {
+      "type": "vector",
+      "tiles": [
+        "http://10.254.1.189:9443/data/gebco_polygon4osm/{z}/{x}/{y}.pbf"
+      ],
+      "minZoom": 0,
+      "maxZoom": 11
+    },
+    "svc": {
+      "type": "raster",
+      "tiles": [
+        "https://svc.geoppt.com/base/image/mosaicjson/tiles/WebMercatorQuad/{z}/{x}/{y}?format=webp&url=/home/geovis/work/eox/base.json"
+      ],
+      "minzoom": 0,
+      "maxzoom": 14
+    }
+  },
+  "sprite": "https://maputnik.github.io/osm-liberty/sprites/osm-liberty",
+  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key={key}",
+  "layers": [
+    {
+      "id": "gebco_25",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "merge_0_25geojson",
+      "maxzoom": 8,
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(230, 255, 255, 1)"}
+    },
+    {
+      "id": "gebco_50",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "50geojson",
+      "maxzoom": 9,
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(219, 255, 255, 1)"}
+    },
+    {
+      "id": "gebco_100",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "100geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(193, 247, 254, 1)"}
+    },
+    {
+      "id": "gebco_200",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "200geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(164, 242, 252, 1)"}
+    },
+    {
+      "id": "gebco_250",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "250geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(146, 224, 248, 1)"}
+    },
+    {
+      "id": "gebco_500",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "500geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(128, 210, 244, 1)"}
+    },
+    {
+      "id": "gebco_750",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "750geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(99, 181, 236, 1)"}
+    },
+    {
+      "id": "gebco_1000",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "1000geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(87,163,231, 1)"}
+    },
+    {
+      "id": "gebco_1250",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "1250geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(79, 147, 222, 1)"}
+    },
+    {
+      "id": "gebco_1500",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "1500geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(65, 130, 220, 1)"}
+    },
+    {
+      "id": "gebco_1750",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "1750geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(60, 117, 211, 1)"}
+    },
+    {
+      "id": "gebco_2000",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "2000geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(52, 103, 205, 1)"}
+    },
+    {
+      "id": "gebco_2500",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "2500geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(41, 93, 191, 1)"}
+    },
+    {
+      "id": "gebco_3000",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "3000geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(32, 81, 183, 1)"}
+    },
+    {
+      "id": "gebco_3500",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "3500geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(32, 81, 183, 1)"}
+    },
+    {
+      "id": "gebco_4000",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "4000geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(26, 69, 168, 1)"}
+    },
+    {
+      "id": "gebco_4500",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "4500geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(26, 69, 168, 1)"}
+    },
+    {
+      "id": "gebco_5000",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "5000geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(22, 58, 157, 1)"}
+    },
+    {
+      "id": "gebco_5500",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "5500geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(22, 58, 157, 1)"}
+    },
+    {
+      "id": "gebco_6000",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "6000geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(19, 46, 144, 1)"}
+    },
+    {
+      "id": "gebco_6500",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "6500geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(19, 46, 144, 1)"}
+    },
+    {
+      "id": "gebco_7000",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "7000geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(12, 37, 126, 1)"}
+    },
+    {
+      "id": "gebco_7500",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "7500geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(12, 37, 126, 1)"}
+    },
+    {
+      "id": "gebco_8000",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "8000geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(10, 27, 110, 1)"}
+    },
+    {
+      "id": "gebco_8500",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "8500geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(10, 27, 110, 1)"}
+    },
+    {
+      "id": "gebco_9000",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "9000geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(7, 16, 84, 1)"}
+    },
+    {
+      "id": "gebco_9500",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "9500geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(7, 16, 84, 1)"}
+    },
+    {
+      "id": "gebco_12000",
+      "type": "fill",
+      "source": "gebco_polygon4osm",
+      "source-layer": "12000geojson",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(1, 5, 32, 1)"}
+    }
+  ],
+  "id": "osm-liberty"
+}
