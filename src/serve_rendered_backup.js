@@ -269,7 +269,7 @@ module.exports = {
           params.width += tileMargin * 2;
           params.height += tileMargin * 2;
         }
-        console.log('params________', params)
+
         renderer.render(params, (err, data) => {
           pool.release(renderer);
           if (err) {
@@ -314,7 +314,7 @@ module.exports = {
             // HACK: when serving zoom 0, resize the 0 tile from 512 to 256
             image.resize(width * scale, height * scale);
           }
-          console.log('opt_overlay_____________', opt_overlay)
+
           if (opt_overlay) {
             image.composite([{ input: opt_overlay }]);
           }
@@ -333,7 +333,7 @@ module.exports = {
           }
 
           const formatQuality = (options.formatQuality || {})[format];
-          console.log('formatQuality___________', formatQuality)
+
           if (format === 'png') {
             image.png({ adaptiveFiltering: false });
           } else if (format === 'jpeg') {
@@ -350,7 +350,6 @@ module.exports = {
               'Last-Modified': item.lastModified,
               'Content-Type': `image/${format}`
             });
-            console.log('success_________________________')
             return res.status(200).send(buffer);
           });
         });
@@ -358,10 +357,6 @@ module.exports = {
     };
 
     app.get(`/:id/:z(\\d+)/:x(\\d+)/:y(\\d+):scale(${scalePattern})?.:format([\\w]+)`, (req, res, next) => {
-      console.log('-----------enter requtest----------1111111111111111111111---')
-      console.log('-----------enter requtest----', req.url)
-      console.log('-----------enter requtest----', req.params)
-      console.log('-----------enter repo----', repo)
       const item = repo[req.params.id];
       if (!item) {
         return res.sendStatus(404);
@@ -388,14 +383,10 @@ module.exports = {
         ((x + 0.5) / (1 << z)) * (256 << z),
         ((y + 0.5) / (1 << z)) * (256 << z)
       ], z);
-      console.log('zxy_____________%s, %s, %s', z, x, y)
-      console.log('zxy____2222222222_________%s, %s, %s', z, tileCenter[0], tileCenter[1])
       return respondImage(item, z, tileCenter[0], tileCenter[1], 0, 0,
         tileSize, tileSize, scale, format, res, next);
     });
 
-    console.log('-----------enter requtest----------22222222222222---options', options)
-    console.log('-----------enter requtest----------22222222222222---')
     if (options.serveStaticMaps !== false) {
       const staticPattern =
         `/:id/static/:raw(raw)?/%s/:width(\\d+)x:height(\\d+):scale(${scalePattern})?.:format([\\w]+)`;
@@ -405,8 +396,6 @@ module.exports = {
           FLOAT_PATTERN, FLOAT_PATTERN, FLOAT_PATTERN,
           FLOAT_PATTERN, FLOAT_PATTERN);
 
-      console.log('-----------enter requtest----------22222222222222---centerPattern ', centerPattern)
-      console.log('-----------enter requtest----------22222222222222--- foramt url', util.format(staticPattern, centerPattern))
       app.get(util.format(staticPattern, centerPattern), (req, res, next) => {
         const item = repo[req.params.id];
         if (!item) {
@@ -427,9 +416,6 @@ module.exports = {
           return res.status(404).send('Invalid zoom');
         }
 
-        console.log('-----------enter requtest---------3333333333333333---req.params ', req.params)
-        console.log('-----------enter requtest---------3333333333333333---item.dataProjWGStoInternalWGS ', item.dataProjWGStoInternalWGS)
-        console.log('-----------enter requtest---------3333333333333333---item.dataProjWGStoInternalWGS string', JSON.stringify(item.dataProjWGStoInternalWGS))
         const transformer = raw ?
           mercator.inverse.bind(mercator) : item.dataProjWGStoInternalWGS;
 
@@ -438,12 +424,10 @@ module.exports = {
           x = ll[0];
           y = ll[1];
         }
-        console.log('-----------enter requtest---------444444444444444---X ', x, 'Y', y)
 
         const path = extractPathFromQuery(req.query, transformer);
         const overlay = renderOverlay(z, x, y, bearing, pitch, w, h, scale,
           path, req.query);
-        console.log('-----------enter requtest---------444444444444444---overlay ', overlay)
 
         return respondImage(item, z, x, y, bearing, pitch, w, h, scale, format,
           res, next, overlay);
@@ -566,7 +550,6 @@ module.exports = {
       });
     }
 
-    console.log('-----------enter requtest----------333333333333333---')
     app.get('/:id.json', (req, res, next) => {
       const item = repo[req.params.id];
       if (!item) {
@@ -578,11 +561,9 @@ module.exports = {
       return res.send(info);
     });
 
-    console.log('-----------enter requtest----------444444444444444---')
     return Promise.all([fontListingPromise]).then(() => app);
   },
   add: (options, repo, params, id, publicUrl, dataResolver) => {
-    console.log('-----------serve rendered add publicUrl----------------', publicUrl)
     const map = {
       renderers: [],
       sources: {}
@@ -596,8 +577,7 @@ module.exports = {
           ratio: ratio,
           request: (req, callback) => {
             const protocol = req.url.split(':')[0];
-            console.log('Handling request:', req.url);
-            console.log('Handling request protocol__________________:', protocol);
+            //console.log('Handling request:', req);
             if (protocol === 'sprites') {
               const dir = options.paths[protocol];
               const file = unescape(req.url).substring(protocol.length + 3);
@@ -618,9 +598,6 @@ module.exports = {
             } else if (protocol === 'mbtiles') {
               const parts = req.url.split('/');
               const sourceId = parts[2];
-              console.log('parts__________________:', parts);
-              // console.log('map.sources__________________:', map.sources);
-              console.log('sourceId__________________:', sourceId);
               const source = map.sources[sourceId];
               const sourceInfo = styleJSON.sources[sourceId];
               const z = parts[3] | 0,
@@ -687,11 +664,9 @@ module.exports = {
             }
           }
         });
-        // console.log('-------styleJSON------------------', styleJSON);
         renderer.load(styleJSON);
         createCallback(null, renderer);
       };
-      console.log('------------ratio----------', ratio)
       return new advancedPool.Pool({
         min: min,
         max: max,
@@ -704,7 +679,6 @@ module.exports = {
 
     const styleFile = params.style;
     const styleJSONPath = path.resolve(options.paths.styles, styleFile);
-    console.log('-------------styleJSONPath----------------------------', styleJSONPath)
     try {
       styleJSON = JSON.parse(fs.readFileSync(styleJSONPath));
     } catch (e) {
@@ -759,14 +733,11 @@ module.exports = {
     };
 
     const queue = [];
-    console.log('-------------styleJSON.sources-------------', styleJSON.sources)
     for (const name of Object.keys(styleJSON.sources)) {
       let source = styleJSON.sources[name];
       const url = source.url;
 
-      console.log('-----------------before-queue enter--------------url', url)
       if (url && url.lastIndexOf('mbtiles:', 0) === 0) {
-        console.log('------------------queue enter--------------')
         // found mbtiles source, replace with info from local file
         delete source.url;
 
@@ -795,24 +766,16 @@ module.exports = {
           }
           map.sources[name] = new MBTiles(mbtilesFile, err => {
             map.sources[name].getInfo((err, info) => {
-              // console.log('00000000000000000000000000',info);
-              // info.proj4 = 'EPSG:4326';
-              // console.log('00000000000000000000000000_____again',info);
               if (err) {
                 console.error(err);
                 return;
               }
 
-              console.log('00000000000000000000000000__________________repo[id].dataProjWGStoInternalWGS', repo[id].dataProjWGStoInternalWGS);
-              console.log('00000000000000000000000000__________________!repo[id].dataProjWGStoInternalWGS', !repo[id].dataProjWGStoInternalWGS);
               if (!repo[id].dataProjWGStoInternalWGS && info.proj4) {
                 // how to do this for multiple sources with different proj4 defs?
-                console.log('1111111111111111111111111111');
                 const to3857 = proj4('EPSG:3857');
                 const toDataProj = proj4(info.proj4);
-                console.log('2222222222222222222222221', info.proj4);
                 repo[id].dataProjWGStoInternalWGS = xy => to3857.inverse(toDataProj.forward(xy));
-                // repo[id].dataProjWGStoInternalWGS = xy => proj4('EPSG:3857', info.proj4).forward(xy);
               }
 
               const type = source.type;
@@ -851,7 +814,7 @@ module.exports = {
         const j = Math.min(maxPoolSizes.length - 1, s - 1);
         const minPoolSize = minPoolSizes[i];
         const maxPoolSize = Math.max(minPoolSize, maxPoolSizes[j]);
-        map.renderers[s] = createPool(1, minPoolSize, maxPoolSize);
+        map.renderers[s] = createPool(s, minPoolSize, maxPoolSize);
       }
     });
 

@@ -50,3 +50,41 @@ You can read the full documentation of this project at https://tileserver.readth
 ## Alternative
 
 Discover MapTiler Server if you need a [map server with easy setup and user-friendly interface](https://www.maptiler.com/server/).
+
+
+
+需要把配置文件放在映射的目录中，在这里比如映射的是/data目录
+配置文件路径结构为
+/data/config.json
+/data/gebco_polygon4osm.mbtiles
+/data/resources/styles/gebco_polygon4osm/style.json
+
+style 里面sources
+用在线服务
+  "sources": {
+    "gebco_polygon4osm": {
+      "type": "vector",
+      "tiles": [
+        "http://10.1.108.195:32527/data/gebco_polygon4osm/{z}/{x}/{y}.pbf"
+      ],
+      "minZoom": 0,
+      "maxZoom": 11
+    },
+  },
+
+或者用mbtiles服务
+  "sources": {
+    "gebco_polygon4osm": {
+      "type": "vector",
+      "url": "mbtiles://gebco_polygon4osm.mbtiles",
+      "minZoom": 0,
+      "maxZoom": 11
+    },
+  },
+
+请求pbf的路径为
+http://localhost:1234/data/gebco_polygon4osm/0/0/0.pbf
+
+
+请求海图的地址为
+http://localhost:1234/styles/gebco_polygon4osm/0/0/0.png
